@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Menu</title>
+</head>
+<body>
+    <div align="center" th:fragment="menu"></div>
+<table>
+    <tr>
+        <td width="80"> <a href="../home.html" th:href="@{/}"
+                           th:text="#{header.home}">HOME</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
