@@ -38,6 +38,11 @@ public class CodeGroudServiceImpl implements CodeGroudService {
 
      repository.save(codeGroupEntity);
     }
+
+    @Override
+    public void remove(String groupCode) throws Exception {
+        repository.deleteById(groupCode);
+    }
 }
 
 

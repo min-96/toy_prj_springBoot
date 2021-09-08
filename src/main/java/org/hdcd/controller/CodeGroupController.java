@@ -61,4 +61,13 @@ public class CodeGroupController {
 
         return "redirect:/codegroup/list";
     }
+
+    @PostMapping("/remove")
+    public  String remove(String groupCode,RedirectAttributes rttr) throws Exception{
+        service.remove(groupCode);
+
+        return "redirect:/codegroup/list";
+    }
+
+
 }

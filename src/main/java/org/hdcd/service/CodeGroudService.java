@@ -13,4 +13,6 @@ public interface CodeGroudService {
   public  CodeGroup read(String groupCode) throws Exception;
 
   public void edit(CodeGroup codeGroup) throws  Exception;
+
+  void remove(String groupCode) throws Exception;
 }
