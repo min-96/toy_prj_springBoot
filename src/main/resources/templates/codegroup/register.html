@@ -7,6 +7,24 @@
     <title>CodeGroup</title>
 </head>
 
+<!--<script th:inline="javascript">-->
+<!--    /*<![CDATA[*/-->
+<!--    $(document).ready(function(){-->
+<!--        let formObj = $("#codeGroup");-->
+
+<!--        $("#btnList").on("click",function (){-->
+<!--            self.location="list";-->
+<!--        });-->
+<!--        $("#btnRegister").on("click",function (){-->
+<!--            formObj.submit();-->
+<!--        });-->
+
+<!--    });-->
+<!--    /*]]>*/-->
+<!--</script>-->
+
+
+
 <!--<script type="text/javascript">-->
 
 <!--    window.onload = function (){-->
@@ -52,8 +70,8 @@
 
     <div>
         <button type="submit" id="btnRegister" th:text="#{action.register}">등록</button>
-<!--        <button type="button" id="btnList" th:text="#{action.list}">목록</button>-->
-       <button type="button" id="btnList" onClick="location.href='/codegroup/list'" th:text="#{action.list}"></button>
+<!--       <button type="submit" id="btnList" th:text="#{action.list}">목록</button>-->
+      <button type="button" id="btnList" onClick="location.href='/codegroup/list'" th:text="#{action.list}"></button>
     </div>
         </form>
 

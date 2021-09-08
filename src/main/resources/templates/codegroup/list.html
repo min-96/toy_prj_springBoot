@@ -6,14 +6,17 @@
     <meta charset="UTF-8">
     <title>CodeGroup</title>
 </head>
-<script type="text/javascript">
-    const result ="${msg}";
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $(document).ready(function(){
+      let result = [[${msg}]];
+      if(result === "Success"){
+          alert("Success");
+      }
 
-    if(result == "Success"){
-        alert(result);
-    }
 
-
+    });
+    /*]]>*/
 </script>
 <body>
     <div layout:fragment="content">

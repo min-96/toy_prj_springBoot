@@ -21,12 +21,22 @@ public class CodeGroudServiceImpl implements CodeGroudService {
 
     @Override
     public List<CodeGroup> list() throws Exception {
-        return repository.findAll(Sort.by(Sort.Direction.DESC,"groupCode"));
+        return repository.findAll(Sort.by(Sort.Direction.DESC,"regDate"));
     }
 
     @Override
     public CodeGroup read(String groupCode) throws Exception {
         return repository.getOne(groupCode);
+    }
+
+    @Override
+    public void edit(CodeGroup codeGroup) throws Exception {
+     CodeGroup codeGroupEntity = repository.getOne(codeGroup.getGroupCode());
+
+    // codeGroupEntity.setGroupCode(codeGroup.getGroupCode());
+     codeGroupEntity.setGroupName(codeGroup.getGroupName());
+
+     repository.save(codeGroupEntity);
     }
 }
 

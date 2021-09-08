@@ -6,6 +6,8 @@ import org.hdcd.domain.CodeGroup;
 import org.hdcd.service.CodeGroudService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +27,7 @@ public class CodeGroupController {
         model.addAttribute(codeGroup);
     }
     @PostMapping("/register")
-    public String register(CodeGroup codeGroup, RedirectAttributes rttr)throws Exception{
+    public String register(CodeGroup codeGroup,RedirectAttributes rttr)throws Exception{
         service.register(codeGroup);
 
         rttr.addFlashAttribute("msg","Success");
@@ -44,5 +46,19 @@ public class CodeGroupController {
     public void read(String groupCode,Model model) throws Exception{
         model.addAttribute(service.read(groupCode));
 
+    }
+
+    @GetMapping("/edit")
+    public void edit(String groupCode,Model model) throws Exception{
+
+            model.addAttribute(service.read(groupCode));
+    }
+
+    @PostMapping("/edit")
+    public String edit(CodeGroup codeGroup,RedirectAttributes rttr) throws Exception{
+
+        service.edit(codeGroup);
+
+        return "redirect:/codegroup/list";
     }
 }

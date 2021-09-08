@@ -6,6 +6,35 @@
     <meta charset="UTF-8">
     <title>CodeGroup</title>
 </head>
+
+<!--<script th:inline="javascript">-->
+<!--    /*<![CDATA[*/-->
+<!--    $(document).ready(function(){-->
+<!--        let formObj = $("#codeGroup");-->
+
+<!--        $("#btnEdit").on("click",function (){-->
+<!--            let groupCode = $("#groupCode");-->
+<!--            let groupCodeVal = groupCode.val();-->
+
+<!--            //self.location="edit";-->
+
+<!--            // self.location="edit?groupCode=" +groupCodeVal;-->
+
+<!--        });-->
+
+<!--        // $("#btnList").on("click",function (){-->
+<!--        //     self.location="list";-->
+<!--        // });-->
+<!--        // $("#btnRemove").on("click",function (){-->
+<!--        //    formObj.submit();-->
+<!--        // });-->
+
+<!--    });-->
+<!--    /*]]>*/-->
+<!--</script>-->
+
+
+
 <body>
 
 <div layout:fragment="content">
@@ -18,7 +47,7 @@
 
             <tr>
                 <td th:text="#{codegroup.groupCode}">코드그룹</td>
-                <td><input type="text" name="groupCode" th:field="*{groupCode}" readonly="readonly"></td>
+                <td><input type="text" id="groupCode" th:field="*{groupCode}" readonly="readonly"></td>
             </tr>
             <tr>
                 <td th:text="#{codegroup.groupName}">코드그룹명</td>
@@ -27,24 +56,17 @@
         </table>
 
         <div>
-            <button type="button" id="btnEdit" onclick="location.href='/codegroup/edit'" th:text="#{action.edit}"></button>
+
+                <div>
+            <a href="edit.html" th:href='|/codegroup/edit?groupCode=${codeGroup.groupCode}|' th:text="#{action.edit}"/>
+                </div>
             <button type="submit" id="btnRemove" th:text="#{action.remove}"></button>
             <button type="button" id="btnList" onclick="location.href='/codegroup/list'" th:text="#{action.list}"></button>
 
 
         </div>
 
-
-
-
-
-
-
-
     </form>
-
-
-
 
 </div>
 
