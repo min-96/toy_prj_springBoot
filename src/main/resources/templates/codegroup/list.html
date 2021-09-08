@@ -38,7 +38,7 @@
             <tr th:each="codeGroup:${list}">
                 <td align="center"
                     th:text="${codeGroup.groupCode}">${codeGroup.groupCode}</td>
-            <td align="center"><a href="read.html" th:href="|/codegroup/read?groupCode=${codeGroup.groupCode}|" th:text="${codeGroup.groupName}" />${codeGroup.groupName}</td>
+            <td align="center"><a href="read.html" th:href="|/codegroup/read?groupCode=${codeGroup.groupCode}|" th:text="${codeGroup.groupName}" /></td>
                 <td align="center" th:text="${#temporals.format(codeGroup.regDate,'yyyy-MM-dd HH:mm')}">${codeGroup.regDate}</td>
             </tr>
 
