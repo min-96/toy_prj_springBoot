@@ -1,10 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="kr" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layouts/main_template">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>CodeGroup</title>
 </head>
-<body>
+<script type="text/javascript">
+    const result ="${msg}";
 
+    if(result == "Success"){
+        alert(result);
+    }
+
+
+</script>
+<body>
+    <div layout:fragment="content">
+        <h2 th:text="#{codegroup.header.list}">코드그룹 목록</h2>
+        <a href="register.html" th:href="@{/codegroup/register}"
+           th:text="#{action.new}">새로만들기</a>
+
+        <table border="1">
+            <tr>
+                <th align="center" width="160" th:text="#{codegroup.groupCode}">코드그룹코드</th>
+                <th align="center" width="160" th:text="#{codegroup.groupName}">코드그룹이름</th>
+                <th align="center" width="180" th:text="#{regdate}">등록일시</th>
+            </tr>
+
+
+            <tr th:if="${#lists.isEmpty(list)}">
+                <td colspan="3" th:text="#{common.listEmpty}">
+                    List is Empty
+                </td>
+            </tr>
+
+            <tr th:each="codeGroup:${list}">
+                <td align="center"
+                    th:text="${codeGroup.groupCode}">${codeGroup.groupCode}</td>
+            <td align="center"><a href="read.html" th:href="|/codegroup/read?groupCode=${codeGroup.groupCode}|" th:text="${codeGroup.groupName}" />${codeGroup.groupName}</td>
+                <td align="center" th:text="${#temporals.format(codeGroup.regDate,'yyyy-MM-dd HH:mm')}">${codeGroup.regDate}</td>
+            </tr>
+
+        </table>
+
+
+
+
+
+
+
+
+    </div>
 </body>
 </html>

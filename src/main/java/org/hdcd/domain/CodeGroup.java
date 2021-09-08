@@ -20,7 +20,6 @@ import java.util.List;
 public class CodeGroup {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(length = 3)
     private String groupCode;
 
