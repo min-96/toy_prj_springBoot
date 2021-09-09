@@ -65,4 +65,13 @@ public class CodeDetailServiceImpl implements CodeDetailService{
 
         codeDetailRepository.save(codeDetailEntity);
     }
+
+    @Override
+    public void remove(CodeDetail codeDetail) throws Exception {
+        CodeDetailId codeDetailId = new CodeDetailId();
+        codeDetailId.setCodeValue(codeDetail.getCodeValue());
+        codeDetailId.setGroupCode(codeDetail.getGroupCode());
+
+        codeDetailRepository.deleteById(codeDetailId);
+    }
 }

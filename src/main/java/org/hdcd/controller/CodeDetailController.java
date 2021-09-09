@@ -70,5 +70,10 @@ public class CodeDetailController {
         codeDetailService.edit(codeDetail);
         return "redirect:/codedetail/list";
     }
+    @PostMapping("/remove")
+    public String remove(CodeDetail codeDetail,RedirectAttributes rttr)throws Exception{
+        codeDetailService.remove(codeDetail);
+        return "redirect:/codedetail/list";
+    }
 
 }
