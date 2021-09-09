@@ -4,6 +4,7 @@ package org.hdcd.service;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.hdcd.domain.CodeDetail;
+import org.hdcd.domain.CodeDetailId;
 import org.hdcd.repository.CodeDetailRepository;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -39,5 +40,29 @@ public class CodeDetailServiceImpl implements CodeDetailService{
     @Override
     public List<CodeDetail> list() {
         return codeDetailRepository.findAll(Sort.by(Sort.Direction.ASC,"groupCode","codeValue"));
+    }
+
+    @Override
+    public CodeDetail read(CodeDetail codeDetail) throws Exception {
+       CodeDetailId codeDetailId = new CodeDetailId();
+       codeDetailId.setCodeValue(codeDetail.getCodeValue());
+       codeDetailId.setGroupCode(codeDetail.getGroupCode());
+
+        return codeDetailRepository.getOne(codeDetailId);
+    }
+
+    @Override
+    public void edit(CodeDetail codeDetail) {
+        CodeDetailId codeDetailId = new CodeDetailId();
+        codeDetailId.setCodeValue(codeDetail.getCodeValue());
+        codeDetailId.setGroupCode(codeDetail.getGroupCode());
+
+        CodeDetail codeDetailEntity = codeDetailRepository.getOne(codeDetailId);
+
+        codeDetailEntity.setCodeValue(codeDetail.getCodeValue());
+        codeDetailEntity.setCodeName(codeDetail.getCodeName());
+       // codeDetailEntity.setGroupCode(codeDetail.getGroupCode());
+
+        codeDetailRepository.save(codeDetailEntity);
     }
 }

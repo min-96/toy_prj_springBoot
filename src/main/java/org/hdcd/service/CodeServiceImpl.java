@@ -18,7 +18,7 @@ public class CodeServiceImpl implements CodeService{
 
     @Override
     public List<CodeLabelValue> getCodeGroupList() throws Exception {
-        List<CodeGroup> codeGroups = codeGroupRepository.findAll(Sort.by(Sort.Direction.ASC,"regDate"));
+        List<CodeGroup> codeGroups = codeGroupRepository.findAll(Sort.by(Sort.Direction.ASC,"groupCode"));
 
         List<CodeLabelValue> codeGroupList = new ArrayList<>();
 

@@ -2,6 +2,8 @@ package org.hdcd.controller;
 
 
 import lombok.RequiredArgsConstructor;
+import org.aspectj.apache.bcel.classfile.Code;
+import org.dom4j.rule.Mode;
 import org.hdcd.domain.CodeDetail;
 import org.hdcd.dto.CodeLabelValue;
 import org.hdcd.service.CodeDetailService;
@@ -47,5 +49,26 @@ public class CodeDetailController {
         model.addAttribute("list",codeDetailService.list());
     }
 
+    @GetMapping("/read")
+    public void read(CodeDetail codeDetail, Model model)throws Exception{
+        model.addAttribute("codeDetail",codeDetailService.read(codeDetail));
+
+        List<CodeLabelValue> groupCodeList = codeService.getCodeGroupList();
+        model.addAttribute("groupCodeList",groupCodeList);
+
+    }
+    @GetMapping("edit")
+    public void edit(CodeDetail codeDetail,Model model)throws Exception{
+        model.addAttribute(codeDetailService.read(codeDetail));
+
+        List<CodeLabelValue> groupCodeList = codeService.getCodeGroupList();
+        model.addAttribute("groupCodeList",groupCodeList);
+
+    }
+    @PostMapping("edit")
+    public String edit(CodeDetail codeDetail,RedirectAttributes rttr)throws Exception{
+        codeDetailService.edit(codeDetail);
+        return "redirect:/codedetail/list";
+    }
 
 }

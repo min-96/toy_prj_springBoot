@@ -8,4 +8,9 @@ public interface CodeDetailService {
     void register(CodeDetail codeDetail) throws Exception;
 
     public List<CodeDetail> list();
+
+    CodeDetail read(CodeDetail codeDetail)throws Exception;
+
+
+    void edit(CodeDetail codeDetail);
 }

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="kr" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layouts/main_template"><head>
+    <meta charset="UTF-8">
+    <title>CodeDetail</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h2 th:text="#{codeDetail.header.edit}"></h2>
+
+    <form id="codeDetail" action="list.html" th:action="@{/codedetail/edit}" th:object="${codeDetail}" method="POST">
+
+
+        <table>
+
+            <tr>
+
+                <td th:text="#{codeDetail.groupCode}">그룹코드</td>
+
+                <td>
+
+                    <select th:field="*{groupCode}">
+
+                        <option th:each="groupCode : ${groupCodeList}" th:value="${groupCode.value}" th:text="${groupCode.label}">hobby</option>
+
+                    </select>
+
+                </td>
+
+                <td><span class="error_message" th:if="${#fields.hasErrors('groupCode')}" th:errors="*{groupCode}">groupCode의 에러 메시지</span></td>
+
+            </tr>
+
+            <tr>
+
+                <td th:text="#{codedetail.codeValue}">코드값</td>
+
+                <td><input type="text" name="codeValue" th:field="*{codeValue}" /></td>
+            </tr>
+            <tr>
+                <td th:text="#{codedetail.codeName}"></td>
+                <td><input type="text" name="codeName" th:field="*{codeName}"/></td>
+            </tr>
+        </table>
+<div>
+    <button type="submit" th:text="#{action.edit}"></button>
+    <button type="button" id="btnList" onclick="location.href='/codedetail/list'" th:text="#{action.list}"></button>
+
+</div>
+    </form>
+</div>
+</body>
+</html>
