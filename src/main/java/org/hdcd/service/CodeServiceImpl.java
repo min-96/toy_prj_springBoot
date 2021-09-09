@@ -1,9 +1,12 @@
 package org.hdcd.service;
 
 import lombok.RequiredArgsConstructor;
+import org.hdcd.domain.CodeDetail;
 import org.hdcd.domain.CodeGroup;
 import org.hdcd.dto.CodeLabelValue;
+import org.hdcd.repository.CodeDetailRepository;
 import org.hdcd.repository.CodeGroupRepository;
+import org.hdcd.repository.MemberRepository;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +18,8 @@ import java.util.List;
 public class CodeServiceImpl implements CodeService{
 
     private final CodeGroupRepository codeGroupRepository;
+    private final CodeDetailRepository codeDetailRepository;
+    private final MemberRepository memberRepository;
 
     @Override
     public List<CodeLabelValue> getCodeGroupList() throws Exception {
@@ -29,5 +34,22 @@ public class CodeServiceImpl implements CodeService{
 
         }
         return codeGroupList;
+    }
+
+    @Override
+    public List<CodeLabelValue> getCodeList(String classCode) {
+
+        //List<CodeDetail> codeDetail1 = codeDetailRepository.findAllById(classCode);
+        List<CodeDetail> codeDetailOptional = codeDetailRepository.findById(classCode);
+
+
+         //   List<CodeDetail> codeDetails = codeDetailRepository.findAll(Sort.by(Sort.Direction.ASC,"groupValue"));
+
+            List<CodeLabelValue> codeDetailList = new ArrayList<>();
+
+            for(CodeDetail codeDetail:codeDetailOptional){
+                codeDetailList.add(new CodeLabelValue(codeDetail.getCodeValue(),codeDetail.getCodeName()));
+            }
+        return codeDetailList;
     }
 }

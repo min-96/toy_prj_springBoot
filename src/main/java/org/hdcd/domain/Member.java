@@ -36,7 +36,7 @@ public class Member {
     private String userName;
 
     @Column(length = 3,nullable = false)
-    private String job;
+    private String family;
 
     private int coin;
     @CreationTimestamp
@@ -49,4 +49,10 @@ public class Member {
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
    @JoinColumn(name="user_no")
     private List<MemberAuth> authList = new ArrayList<>();
+
+    public void addAuth(MemberAuth auth){
+        authList.add(auth);
+    }
+
+
 }

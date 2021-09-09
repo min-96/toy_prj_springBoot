@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="kr" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layouts/main_template">
+<head>
+    <meta charset="UTF-8">
+    <title>Member</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h2 th:text="#{member.header.register}"></h2>
+
+    <form id="member" action="list.html" th:action="@{/member/register}" th:object="${member}" method="POST">
+
+
+        <table>
+
+            <tr>
+
+                <td th:text="#{member.userId}">아이디</td>
+
+                <td><input type="text" name="userId" th:field="*{userId}" /></td>
+
+                <td><span class="error_message" th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}">userId의 에러 메시지</span></td>
+
+            </tr>
+
+            <tr>
+
+                <td th:text="#{member.userPw}">비밀번호</td>
+
+                <td><input type="text" name="userPw" th:field="*{userPwd}" /></td>
+
+                <td><span class="error_message" th:if="${#fields.hasErrors('userPwd')}" th:errors="*{userPwd}">userPw의 에러 메시지</span></td>
+
+            </tr>
+
+            <tr>
+
+                <td th:text="#{member.userName}">사용자명</td>
+
+                <td><input type="text" name="userName" th:field="*{userName}" /></td>
+
+                <td><span class="error_message" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">userName의 에러 메시지</span></td>
+
+            </tr>
+            <tr>
+            <td th:text="#{member.family}"></td>
+            <td>
+            <select th:field="*{family}">
+                <option th:each="family :${familyList}" th:value="${family.value}" th:text="${family.label}">
+                </option>
+            </select>
+            </td>
+                <td><span class="error_message" th:if="${#fields.hasErrors('family')}" th:errors="*{family}">에러 메시지</span></td>
+
+            </tr>
+        </table>
+        <div>
+            <button type="submit" th:text="#{action.register}"></button>
+            <button type="button" id="btnList" onclick="location.href='/member/list'" th:text="#{action.list}"></button>
+
+        </div>
+    </form>
+
+
+</div>
+</body>
+</html>

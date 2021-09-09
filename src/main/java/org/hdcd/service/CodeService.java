@@ -8,4 +8,5 @@ public interface CodeService {
 
     List<CodeLabelValue> getCodeGroupList() throws Exception;
 
+    List<CodeLabelValue> getCodeList(String classCode);
 }
