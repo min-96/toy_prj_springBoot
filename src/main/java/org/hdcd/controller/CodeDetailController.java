@@ -42,6 +42,10 @@ public class CodeDetailController {
         return "redirect:/codedetail/list";
     }
 
+    @GetMapping("/list")
+    public void list(Model model)throws  Exception{
+        model.addAttribute("list",codeDetailService.list());
+    }
 
 
 }

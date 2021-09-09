@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.hdcd.domain.CodeDetail;
 import org.hdcd.repository.CodeDetailRepository;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLOutput;
@@ -33,5 +34,10 @@ public class CodeDetailServiceImpl implements CodeDetailService{
         }
         codeDetail.setSortSeq(maxSortSeq+1);
         codeDetailRepository.save(codeDetail);
+    }
+
+    @Override
+    public List<CodeDetail> list() {
+        return codeDetailRepository.findAll(Sort.by(Sort.Direction.ASC,"groupCode","codeValue"));
     }
 }
