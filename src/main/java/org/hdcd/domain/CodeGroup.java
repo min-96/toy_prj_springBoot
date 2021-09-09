@@ -17,7 +17,7 @@ import java.util.List;
 @Getter
 @Entity
 @Setter
-@ToString
+@ToString(exclude = "codeDetail")
 @EqualsAndHashCode(of = "groupCode")
 @Table(name = "code_group")
 public class CodeGroup {
@@ -43,5 +43,9 @@ public class CodeGroup {
     @UpdateTimestamp
     private LocalDateTime upDate;
 
+
+    @OneToMany
+    @JoinColumn(name="groupCode")
+    private List<CodeDetail> codeDetails;
 
 }
