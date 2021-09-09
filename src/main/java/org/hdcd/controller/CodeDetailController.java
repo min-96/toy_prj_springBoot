@@ -9,7 +9,9 @@ import org.hdcd.service.CodeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -32,6 +34,12 @@ public class CodeDetailController {
 
         model.addAttribute("groupCodeList",groupCodeList);
 
+    }
+
+    @PostMapping("/register")
+    public String register(CodeDetail codeDetail, RedirectAttributes rttr)throws Exception{
+        codeDetailService.register(codeDetail);
+        return "redirect:/codedetail/list";
     }
 
 
