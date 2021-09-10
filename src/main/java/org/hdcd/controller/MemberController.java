@@ -58,4 +58,9 @@ public class MemberController {
     public void registerSuccess(Model model)throws Exception{
 
     }
+
+    @GetMapping("/list")
+    public void list(Model model)throws Exception{
+        model.addAttribute("list",memberService.list());
+    }
 }
