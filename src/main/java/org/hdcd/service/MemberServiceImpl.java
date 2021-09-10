@@ -54,5 +54,26 @@ public class MemberServiceImpl implements MemberService {
         return memberRepository.getOne(userNo);
     }
 
+    @Override
+    public void edit(Member member) throws Exception {
+        Member memberEntity = memberRepository.getOne(member.getUserNo());
+        //권한 차례대로 담기
+
+        //원래것
+        List<MemberAuth> memberAuthList = memberEntity.getAuthList();
+        //수정한것
+        List<MemberAuth> authList = member.getAuthList();
+
+        for(int i=0; i< authList.size(); i++){
+            MemberAuth auth = authList.get(i);
+            if(i< memberAuthList.size()){
+                MemberAuth memberAuth = memberAuthList.get(i);
+                memberAuth.setAuth(auth.getAuth());
+
+            }
+        }
+        memberRepository.save(member);
+    }
+
 
 }

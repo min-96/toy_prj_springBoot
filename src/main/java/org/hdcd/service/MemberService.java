@@ -9,5 +9,7 @@ public interface MemberService {
 
    public List<Member> list()throws Exception;
 
-    public Member read(Long userNo);
+    public Member read(Long userNo)throws Exception;
+
+    void edit(Member member)throws Exception;
 }

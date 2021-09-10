@@ -64,10 +64,25 @@ public class MemberController {
         model.addAttribute("list",memberService.list());
     }
     @GetMapping("/read")
-    public void read(Long userNo, Model model){
+    public void read(Long userNo, Model model)throws Exception{
         String classCode = "A02";
         List<CodeLabelValue> familyList = codeService.getCodeList(classCode);
         model.addAttribute("familyList" , familyList);
         model.addAttribute(memberService.read(userNo));
+    }
+
+
+    @GetMapping("/edit")
+    public void edit(Long userNo,Model model)throws Exception{
+        String classCode = "A02";
+        List<CodeLabelValue> familyList = codeService.getCodeList(classCode);
+        model.addAttribute("fammilyList",familyList);
+        model.addAttribute(memberService.read(userNo));
+
+    }
+    @PostMapping("/edit")
+    public String edit(Member member,RedirectAttributes rttr)throws Exception{
+        memberService.edit(member);
+        return "redirect:/member/list";
     }
 }
