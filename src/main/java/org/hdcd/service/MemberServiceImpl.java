@@ -49,5 +49,10 @@ public class MemberServiceImpl implements MemberService {
         return memberList;
     }
 
+    @Override
+    public Member read(Long userNo) {
+        return memberRepository.getOne(userNo);
+    }
+
 
 }

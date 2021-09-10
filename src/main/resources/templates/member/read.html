@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="kr" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layouts/main_template"><head>
+    <meta charset="UTF-8">
+    <title>Member</title>
+</head>
+<body>
+<div layout:fragment="content">
+
+
+    <h2 th:text="#{member.header.read}">회원 상세보기</h2>
+
+
+
+
+    <form id="member" action="list.html" th:action="@{/member/remove}" th:object="${member}" method="POST">
+
+
+
+
+        <input type="hidden" name="userNo" th:field="*{userNo}" />
+
+
+
+
+        <table>
+
+            <tr>
+
+                <td th:text="#{member.userId}">아이디</td>
+
+                <td><input type="text" name="userId" th:field="*{userId}" readonly="readonly" /></td>
+
+            </tr>
+
+            <tr>
+
+                <td th:text="#{member.userName}">사용자명</td>
+
+                <td><input type="text" name="userName" th:field="*{userName}" readonly="readonly" /></td>
+
+            </tr>
+
+            <tr>
+
+                <td th:text="#{member.family}">가족</td>
+
+                <td>
+
+                    <select th:field="*{family}" disabled="disabled">
+
+                        <option th:each="item : ${familyList}" th:value="${item.value}" th:text="${item.label}"></option>
+
+                    </select>
+
+                </td>
+
+            </tr>
+            <tr>
+                <td th:text="#{member.auth}+'1'"></td>
+                <td>
+                    <select th:field="*{authList[0].auth}" disabled="disabled">
+                        <option th:value="setting" th:text="'---Please choose---'"/>
+                        <option th:value="ROLE_USER" th:text="USER"></option>
+                        <option th:value = "ROLE_MEMBER" th:text="MEMBER"></option>
+                        <option th:value="ROLE_ADMIN" th:text="ADMIN"></option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td th:text="#{member.auth}+'2'"></td>
+                <td>
+                    <select th:field="*{authList[1].auth}" disabled="disabled">
+                        <option th:value="setting" th:text="'---Pleas choose---'"></option>
+                        <option th:value="ROLE_USER" th:text="USER"></option>
+                        <option th:value="ROLE_MEMBER" th:text="MEMBER"></option>
+                        <option th:value="ROLE_ADMIN" th:text="ADMIN"></option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td th:text="#{member.auth}+'3'"></td>
+                <td>
+                    <select th:field="*{authList[2].auth}" disabled="disabled">
+                        <option th:value="setting" th:text="'---Pleas choose---'"></option>
+                        <option th:value="ROLE_USER" th:text="USER"></option>
+                        <option th:value="ROLE_MEMBER" th:text="MEMBER"></option>
+                        <option th:value="ROLE_ADMIN" th:text="ADMIN"></option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <a href="edit.html" th:href='|/member/edit?userNo=${member.userNo}|' th:text="#{action.edit}"/>
+
+        <div>
+            <button type="submit" th:text="#{action.remove}"></button>
+            <button type="button" id="btnList" onclick="location.href='/member/list'" th:text="#{action.list}"></button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

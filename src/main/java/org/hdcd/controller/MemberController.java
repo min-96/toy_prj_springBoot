@@ -63,4 +63,11 @@ public class MemberController {
     public void list(Model model)throws Exception{
         model.addAttribute("list",memberService.list());
     }
+    @GetMapping("/read")
+    public void read(Long userNo, Model model){
+        String classCode = "A02";
+        List<CodeLabelValue> familyList = codeService.getCodeList(classCode);
+        model.addAttribute("familyList" , familyList);
+        model.addAttribute(memberService.read(userNo));
+    }
 }
