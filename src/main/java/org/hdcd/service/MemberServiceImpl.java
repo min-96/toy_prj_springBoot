@@ -57,6 +57,10 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public void edit(Member member) throws Exception {
         Member memberEntity = memberRepository.getOne(member.getUserNo());
+        memberEntity.setUserName(member.getUserName());
+        memberEntity.setFamily(member.getFamily());
+        memberEntity.setUserPwd(member.getUserPwd());
+        memberEntity.setRegDate(member.getRegDate());
         //권한 차례대로 담기
 
         //원래것
@@ -73,6 +77,33 @@ public class MemberServiceImpl implements MemberService {
             }
         }
         memberRepository.save(member);
+    }
+
+    @Override
+    public void remove(Long userNo) throws Exception {
+        memberRepository.deleteById(userNo);
+    }
+
+    @Override
+    public long countAll() throws Exception {
+        //회원 데이터 건수 리턴.
+        return memberRepository.count();
+    }
+
+    @Override
+    public void setupAdmin(Member member) throws Exception {
+        Member memberEntity = new Member();
+        memberEntity.setUserId(member.getUserId());
+        memberEntity.setUserPwd(member.getUserPwd());
+        memberEntity.setUserName(member.getUserName());
+        memberEntity.setFamily(member.getFamily());
+
+        MemberAuth memberAuth = new MemberAuth();
+        memberAuth.setAuth("ROLE_ADMIN");
+        memberEntity.addAuth(memberAuth);
+
+        memberRepository.save(memberEntity);
+
     }
 
 

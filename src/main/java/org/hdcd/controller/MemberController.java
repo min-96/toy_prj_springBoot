@@ -2,6 +2,7 @@ package org.hdcd.controller;
 
 
 import lombok.RequiredArgsConstructor;
+import org.dom4j.rule.Mode;
 import org.hdcd.domain.Member;
 import org.hdcd.dto.CodeLabelValue;
 import org.hdcd.service.CodeService;
@@ -29,6 +30,29 @@ public class MemberController {
     private final CodeService codeService;
 
     private final PasswordEncoder passwordEncoder;
+
+
+    @GetMapping("/setup")
+    public String setupAdminForm(Member member, Model model)throws Exception{
+        if(memberService.countAll()==0){
+            return "member/setup";
+        }
+        return "member/setupFailure";
+    }
+
+    @PostMapping("/setup")
+    public String setupAdmin(Member member,RedirectAttributes attr)throws Exception{
+        if(memberService.countAll()==0){
+            String inputPassword = member.getUserPwd();
+            member.setUserPwd(passwordEncoder.encode(inputPassword));
+
+            member.setFamily("00");
+            memberService.setupAdmin(member);
+            attr.addFlashAttribute("userName",member.getUserName());
+                return "redirect:/member/registerSuccess";
+        }
+        return "redirect:/member/setupFailure";
+    }
 
     @GetMapping("/register")
     public void register(Model model){
@@ -76,13 +100,19 @@ public class MemberController {
     public void edit(Long userNo,Model model)throws Exception{
         String classCode = "A02";
         List<CodeLabelValue> familyList = codeService.getCodeList(classCode);
-        model.addAttribute("fammilyList",familyList);
+        model.addAttribute("familyList",familyList);
         model.addAttribute(memberService.read(userNo));
 
     }
     @PostMapping("/edit")
     public String edit(Member member,RedirectAttributes rttr)throws Exception{
         memberService.edit(member);
+        return "redirect:/member/list";
+    }
+
+    @PostMapping("/remove")
+    public String remove(Long userNo,RedirectAttributes rttr)throws Exception{
+        memberService.remove(userNo);
         return "redirect:/member/list";
     }
 }

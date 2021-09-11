@@ -31,15 +31,24 @@
                 <td th:text="#{member.userId}">아이디</td>
 
                 <td><input type="text" name="userId" th:field="*{userId}" readonly="readonly" /></td>
-
+                <td>
+                    <span class="error_message"
+                          th:if="${#fields.hasErrors('userId')}" th:error="*{userId}"></span>
+                </td>
             </tr>
+
+            <input type="hidden" name="userPwd" th:field="*{userPwd}" />
+
 
             <tr>
 
                 <td th:text="#{member.userName}">사용자명</td>
 
-                <td><input type="text" name="userName" th:field="*{userName}" readonly="readonly" /></td>
-
+                <td><input type="text" name="userName" th:field="*{userName}"  /></td>
+                <td>
+                    <span class="error_message"
+                          th:if="${#fields.hasErrors('userName')}" th:error="*{userName}"></span>
+                </td>
             </tr>
 
             <tr>
@@ -48,13 +57,14 @@
 
                 <td>
 
-                    <select th:field="*{family}" disabled="disabled">
+                    <select th:field="*{family}" >
 
                         <option th:each="item : ${familyList}" th:value="${item.value}" th:text="${item.label}"></option>
 
                     </select>
 
                 </td>
+                <input type="hidden" th:field="*{regDate}">
 
             </tr>
             <tr>
@@ -67,6 +77,10 @@
                         <option th:value="ROLE_ADMIN" th:text="ADMIN"></option>
                     </select>
                 </td>
+
+                <td><span class="error_message"
+                          th:if="${#fields.hasErrors('authList[0].auth')}" th:error="*{authList[0].auth}">
+                </span></td>
             </tr>
             <tr>
                 <td th:text="#{member.auth}+'2'"></td>
@@ -78,6 +92,9 @@
                         <option th:value="ROLE_ADMIN" th:text="ADMIN"></option>
                     </select>
                 </td>
+                <td><span class="error_message"
+                          th:if="${#fields.hasErrors('authList[1].auth')}" th:error="*{authList[1].auth}">
+                </span></td>
             </tr>
             <tr>
                 <td th:text="#{member.auth}+'3'"></td>
@@ -88,10 +105,12 @@
                         <option th:value="ROLE_MEMBER" th:text="MEMBER"></option>
                         <option th:value="ROLE_ADMIN" th:text="ADMIN"></option>
                     </select>
+                <td><span class="error_message"
+                          th:if="${#fields.hasErrors('authList[2].auth')}" th:error="*{authList[2].auth}">
+                </span></td>
                 </td>
             </tr>
         </table>
-        <a href="edit.html" th:href='|/member/edit?userNo=${member.userNo}|' th:text="#{action.edit}"/>
 
         <div>
             <button type="submit" th:text="#{action.edit}"></button>
