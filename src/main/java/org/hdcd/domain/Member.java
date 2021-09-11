@@ -4,20 +4,28 @@ package org.hdcd.domain;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
 @Setter
 @Entity
 @Table(name="memebr")
 @ToString
 public class Member {
 
+    public Member(String username, String password, Collection<? extends GrantedAuthority> authorities) {
+            this.userName=username;
+            this.userPwd=password;
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_no")
@@ -49,6 +57,7 @@ public class Member {
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
    @JoinColumn(name="user_no")
     private List<MemberAuth> authList = new ArrayList<>();
+
 
     public void addAuth(MemberAuth auth){
         authList.add(auth);
