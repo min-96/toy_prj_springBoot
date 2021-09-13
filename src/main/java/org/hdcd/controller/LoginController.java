@@ -11,6 +11,14 @@ public class LoginController {
 
     @RequestMapping("/login")
     public String loginForm(String error, String logout, Model model){
+       if(error !=null){
+           model.addAttribute("error", "LoginError");
+
+       }
+
+       if(logout!=null){
+           model.addAttribute("logout","logout");
+        }
         return "auth/loginForm";
     }
 

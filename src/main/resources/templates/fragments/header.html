@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
+        xmlns:sec="http://www.thymeleaf.org/thymeleaf=extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <title>Header</title>
@@ -9,11 +10,20 @@
 <body>
     <div align="right" th:fragment="header">
         <table>
+
+            <tr sec:authorize="!isAuthenticated()"></tr>
            <tr>
                <td width="80">
                 <a href="../member/register.html" th:href="@{/member/register}" th:text="#{header.joinMember}">Join</a>
                </td>
+
+
+               <td width="80"><a href="../auth/loginForm.html" th:href="@{/auth/login}"  th:text="#{header.login}"></a> </td>
            </tr>
+
+            <tr sec:authorize="isAuthenticated()">
+                <td width="180"><span sec:authentication="principal.username"></span>님</td>
+            </tr>
 
 
         </table>
