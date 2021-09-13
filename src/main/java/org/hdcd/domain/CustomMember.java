@@ -15,7 +15,8 @@ public class CustomMember extends Member{
     public CustomMember(String username, String password, Collection<? extends GrantedAuthority> authorities){
             super(username,password,authorities);
     }
-
+    //사용자가 정의한 Member타입을 스프링 시큐리티로 userDetail타입으로 변환.
+    //자바스트림이용
     public CustomMember(Member member){
         super(member.getUserId(),member.getUserPwd(),member.getAuthList().stream()
                 .map(auth->new SimpleGrantedAuthority(auth.getAuth())).collect(Collectors.toList()));
