@@ -43,6 +43,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //로그인 성공후 처리를 담당하는 처리자
                 .successHandler(authenticationSucessHandler());
 
+        http.logout()
+                        .logoutUrl("/auth/logout")
+                                .logoutSuccessUrl("/")
+                                        .invalidateHttpSession(true)
+                                                .deleteCookies("remember-me","JSESSION_ID");
+
         http.exceptionHandling()
                         .accessDeniedHandler(accessDeniedHandler());
 

@@ -20,11 +20,13 @@
 
                <td width="80"><a href="../auth/loginForm.html" th:href="@{/auth/login}"  th:text="#{header.login}"></a> </td>
            </tr>
-
+            <td width="180">
             <tr sec:authorize="isAuthenticated()">
-                <td width="180"><span sec:authentication="principal.username"></span>님</td>
+                <form actio="../auth/logout.html" th:action="@{/auth/logout}" method="post">
+              <span sec:authentication="principal.username"></span>님 <button th:text="#{header.logout}"></button>
+                </form>
             </tr>
-
+            </td>
 
         </table>
 
