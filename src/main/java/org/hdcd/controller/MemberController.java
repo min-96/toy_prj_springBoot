@@ -7,6 +7,7 @@ import org.hdcd.domain.Member;
 import org.hdcd.dto.CodeLabelValue;
 import org.hdcd.service.CodeService;
 import org.hdcd.service.MemberService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -82,7 +83,7 @@ public class MemberController {
     public void registerSuccess(Model model)throws Exception{
 
     }
-
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/list")
     public void list(Model model)throws Exception{
         model.addAttribute("list",memberService.list());
@@ -109,7 +110,7 @@ public class MemberController {
         memberService.edit(member);
         return "redirect:/member/list";
     }
-
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/remove")
     public String remove(Long userNo,RedirectAttributes rttr)throws Exception{
         memberService.remove(userNo);

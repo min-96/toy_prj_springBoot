@@ -5,8 +5,10 @@ import lombok.RequiredArgsConstructor;
 import org.hdcd.config.security.CustomAccessDeniedHandler;
 import org.hdcd.config.security.CustomLoginSuccessHandler;
 import org.hdcd.config.security.CustomUserDetailService;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -22,11 +24,27 @@ import javax.sql.DataSource;
 
 @RequiredArgsConstructor
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true,securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     final DataSource dataSource;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
+        http.authorizeRequests()
+                        .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+                        .antMatchers("/").permitAll()
+                        .antMatchers("/auth/login").permitAll()
+                        .antMatchers("member/register","./member/registerSuccess").permitAll()
+                        .antMatchers("/member/**").hasRole("ADMIN")
+                        .antMatchers("/codegroup/**").hasRole("ADMIN")
+                        .antMatchers("/codedetail/**").hasRole("ADMIN")
+                        .anyRequest().authenticated();
+
+
+
+
+
         http.formLogin()
                 .loginPage("/auth/login")
                 .loginProcessingUrl("/login")
