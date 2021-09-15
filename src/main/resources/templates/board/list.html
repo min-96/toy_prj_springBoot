@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>BOARD</title>
+</head>
+<body>
+	<h1>LIST</h1>
+	<h3>Board List : access to all</h3>
+<!-- 	<h2>http요청방식</h2>
+	<form th:action="@{/board/register}"> 경로
+	<input type="submit" value="register(GET)"> 메서드 매핑
+	</form> -->
+<!-- 	<h2>param매핑</h2>
+	<a th:href="@{/board/get?register}">Register</a>
+	
+	<form th:action="@{/board/post}" method="post"> 경로
+	<input type="submit" name="register"> 메서드 매핑
+	</form>
+	
+	<a th:href="@{/board/get?modify}">Modify</a> -->
+	
+<!-- 	검색 폼 -->
+	<form action="list.html" th:action="@{list}"
+	th:object="${pgrq}" method="get">
+	<select th:field="*{searchType}">
+	<option th:each="element:${search}" th:value="${element.value}" 
+	th:label="${element.label}">제목</option>
+	</select>
+	
+	<input type="text" name="keyword" th:field="*{keyword}"/>
+	<button type="submit">검색</button>
+	
+	</form>
+	
+	
+	
+	
+	
+	
+	
+	<a href = "register.html" th:href="@{register}">New</a>
+	<table border ="1" th:with="boardList=${pgntn.page.content}">
+	<tr>
+	<th align="center" width ="80">No</th>
+	<th align="center" width ="320">Title</th>
+	<th align="center"width = "100">WRiter</th>
+	<th align ="center" width = "180">Regdate</th>
+	</tr>
+	
+	<tr th:if="${#lists.isEmpty(boardList)}">
+	<td colspan="4"> List is empty</td>
+	</tr>
+	
+
+	<tr th:each="board:${boardList}">
+	<td align ="center" th:text="${board.boardNo}">${board.boardNo}</td>
+	<td align ="left"><a href="read.html" th:href="@{|read${pgrq.toUriString()}&boardNo=${board.boardNo}|}"
+	th:text="${board.title}">${board.title}</a></td>
+	
+	<td align= "right" th:text="${board.writer}">${board.writer}</td>
+	
+	<td aligb = "right" th:text="${#temporals.format(board.regDate,'yyyy-MM-dd')}">${board.regDate}</td>
+	</tr>
+	
+	</table>
+	
+	
+	<input type="hidden" name ="page" th:value="${pgrq.page}"/>
+	<input type="hidden" name="sizePerPage" th:value ="${pgrq.sizePerPage}"/>
+
+<!-- 	페이징 네비게이션-->	
+	<div>
+	<th:block th:if = "${pgntn.prevPageable}">
+	<a
+	th:href="@{|list${pgrq.toUriStringByPage(pgntn.prevPageable.pageNumber+1)}|}">Prev
+	[[${pgntn.prevPageable.pageNumber}+1]]</a>
+	</th:block>
+	
+	<th:block th:each="p:${pgntn.pageableList}">
+	<a href="list.html" th:href="@{|list${pgrq.toUriStringByPage(p.pageNumber+1)}|}">
+	[[${p.pageNumber}+1]]
+	</a>
+	</th:block>
+	
+ 	<th:block th:if="${pgntn.nextPageable}">
+	<a href="list.html" th:href="@{|list${pgrq.toUriStringByPage(pgntn.nextPageable.pageNumber+1)}|}">
+	[[${pgntn.nextPageable.pageNumber}+1]]
+	</a>
+	</th:block>	
+	
+	
+	
+
+	
+	</div>
+	
+	
+	
+
+<!--  <script  th:inline="javascript">
+	/*<![CDATA[*/
+	var result = "[[${msg}]]";
+	if(result){
+        alert(result);
+        }
+	/*]]>*/
+</script>
+	 -->
+	
+</body>
+</html>
