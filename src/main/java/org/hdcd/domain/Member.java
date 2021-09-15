@@ -22,10 +22,6 @@ import java.util.List;
 @ToString
 public class Member {
 
-    public Member(String username, String password, Collection<? extends GrantedAuthority> authorities) {
-            this.userName=username;
-            this.userPwd=password;
-    }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_no")
@@ -51,6 +47,9 @@ public class Member {
     private LocalDateTime regDate;
     @UpdateTimestamp
     private LocalDateTime upDate;
+
+
+
 
         //fetch 멤버조회할때 MemberAuth도 조회
     //cascade 엔티티 영속성 변화될때 모든게 변화됨

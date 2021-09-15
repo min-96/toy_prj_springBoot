@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="kr" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="layouts/main_template"><head>
+      layout:decorate="layouts/main_template"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf=extras-springsecurity5">
+<head>
     <meta charset="UTF-8">
     <title>Member</title>
 </head>
@@ -113,7 +115,9 @@
         </table>
 
         <div>
+            <th:block sec:authorize="hasRole('ADMIN')">
             <button type="submit" th:text="#{action.edit}"></button>
+            </th:block>
             <button type="button" id="btnList" onclick="location.href='/member/list'" th:text="#{action.list}"></button>
         </div>
     </form>

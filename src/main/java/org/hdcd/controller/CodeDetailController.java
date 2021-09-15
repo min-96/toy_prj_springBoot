@@ -8,6 +8,7 @@ import org.hdcd.domain.CodeDetail;
 import org.hdcd.dto.CodeLabelValue;
 import org.hdcd.service.CodeDetailService;
 import org.hdcd.service.CodeService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @Controller
 @RequestMapping("/codedetail")
+@PreAuthorize("hasRole('ADMIN')")
+
 public class CodeDetailController {
 
     private final CodeDetailService codeDetailService;

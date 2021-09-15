@@ -1,4 +1,4 @@
-package org.hdcd.security;
+package org.hdcd.config.security;
 
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
@@ -8,9 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class CustomAccessDeiedHandler implements AccessDeniedHandler {
-
-
+public class CustomAccessDeniedHandler implements AccessDeniedHandler {
     @Override
     public void handle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AccessDeniedException e) throws IOException, ServletException {
         httpServletResponse.sendRedirect("/error/accessError");

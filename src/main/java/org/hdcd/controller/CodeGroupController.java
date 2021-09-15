@@ -4,6 +4,7 @@ package org.hdcd.controller;
 import lombok.RequiredArgsConstructor;
 import org.hdcd.domain.CodeGroup;
 import org.hdcd.service.CodeGroudService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/codegroup")
+@PreAuthorize("hasRole('ADMIN')")
 public class CodeGroupController {
 
     private final CodeGroudService service;
@@ -36,7 +38,7 @@ public class CodeGroupController {
       //  addFlashAttribute() 는 리다이렉트 직전 플래시에 저장하는 메소드다. 리다이렉트 이후에는 소멸한다.
         return "redirect:/codegroup/list";
     }
-
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("list")
     public void list(Model model)throws Exception{
         model.addAttribute("list",service.list());
@@ -61,7 +63,7 @@ public class CodeGroupController {
 
         return "redirect:/codegroup/list";
     }
-
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/remove")
     public  String remove(String groupCode,RedirectAttributes rttr) throws Exception{
         service.remove(groupCode);

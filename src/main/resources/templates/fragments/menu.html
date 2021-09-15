@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf=extras-springsecurity5">
+
 <head>
     <meta charset="UTF-8">
     <title>Menu</title>
@@ -11,13 +13,31 @@
         <td width="80"> <a href="../home.html" th:href="@{/}"
                            th:text="#{header.home}">HOME</a>
         </td>
+<!--        //로그인을 하지 않은 경우.-->
+        <th:block sec:authorize = "!isAuthenticated()">
+
+        </th:block>
+<!--        인증된 사용자인 경우 -->
+        <th:block sec:authorize = "isAuthenticated()">
 
 
+
+
+        <th:block sec:authorize = "hasRole('ADMIN')">
         <td width="120"><a href="../codegroup/list.html" th:href="@{/codegroup/list}" th:text="#{menu.codegroup.list}">코드그룹관리</a> </td>
 
         <td width="120"><a href="../codedetail/list.html" th:href="@{/codedetail/list}"th:text="#{menu.codedetail.list}"/></td>
 
         <td width="120"> <a href="../member/list.html" th:href="@{/member/list}" th:text="#{menu.member.list}"/></td>
+        </th:block>
+
+        <th:block sec:authorize ="hasRole('MEMBER')">
+
+
+
+        </th:block>
+        </th:block>
+
     </tr>
 </table>
     </div>

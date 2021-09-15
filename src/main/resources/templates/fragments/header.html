@@ -10,23 +10,22 @@
 <body>
     <div align="right" th:fragment="header">
         <table>
+<!--            로그인을 하지않은경우-->
+            <tr sec:authorize="!isAuthenticated()">
 
-            <tr sec:authorize="!isAuthenticated()"></tr>
-           <tr>
                <td width="80">
-                <a href="../member/register.html" th:href="@{/member/register}" th:text="#{header.joinMember}">Join</a>
-               </td>
-
-
+                <a href="../member/register.html" th:href="@{/member/register}" th:text="#{header.joinMember}">Join</a></td>
                <td width="80"><a href="../auth/loginForm.html" th:href="@{/auth/login}"  th:text="#{header.login}"></a> </td>
            </tr>
-            <td width="180">
+
+
             <tr sec:authorize="isAuthenticated()">
-                <form actio="../auth/logout.html" th:action="@{/auth/logout}" method="post">
+            <td width="180">
+                <form action="../auth/logout.html" th:action="@{/auth/logout}" method="post">
               <span sec:authentication="principal.username"></span>님 <button th:text="#{header.logout}"></button>
                 </form>
-            </tr>
             </td>
+            </tr>
 
         </table>
 

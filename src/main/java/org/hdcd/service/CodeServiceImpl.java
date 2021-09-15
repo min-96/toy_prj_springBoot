@@ -6,7 +6,7 @@ import org.hdcd.domain.CodeGroup;
 import org.hdcd.dto.CodeLabelValue;
 import org.hdcd.repository.CodeDetailRepository;
 import org.hdcd.repository.CodeGroupRepository;
-import org.hdcd.repository.MemberRepository;
+
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +19,7 @@ public class CodeServiceImpl implements CodeService{
 
     private final CodeGroupRepository codeGroupRepository;
     private final CodeDetailRepository codeDetailRepository;
-    private final MemberRepository memberRepository;
+
 
     @Override
     public List<CodeLabelValue> getCodeGroupList() throws Exception {
