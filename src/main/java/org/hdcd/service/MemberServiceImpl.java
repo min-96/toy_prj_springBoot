@@ -4,6 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.hdcd.domain.Member;
 import org.hdcd.domain.MemberAuth;
 import org.hdcd.repository.MemberRepository;
+import org.hdcd.vo.PageRequestVO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -28,7 +33,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public List<Member> list() throws Exception {
+    public List<Member> Mlist() throws Exception {
         List<Object[]> valueArrays = memberRepository.listAllMember();
 
         List<Member> memberList = new ArrayList<>();
@@ -107,4 +112,8 @@ public class MemberServiceImpl implements MemberService {
     }
 
 
-}
+
+    }
+
+
+

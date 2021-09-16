@@ -3,10 +3,14 @@ package org.hdcd.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.dom4j.rule.Mode;
+import org.hdcd.domain.Board;
 import org.hdcd.domain.Member;
 import org.hdcd.dto.CodeLabelValue;
+import org.hdcd.dto.PaginationDTO;
 import org.hdcd.service.CodeService;
 import org.hdcd.service.MemberService;
+import org.hdcd.vo.PageRequestVO;
+import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -14,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -85,9 +90,22 @@ public class MemberController {
     }
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/list")
-    public void list(Model model)throws Exception{
-        model.addAttribute("list",memberService.list());
+    public void list(@ModelAttribute("pgrq") PageRequestVO pageRequestVO, Model model)throws Exception{
+
+        model.addAttribute("list",memberService.Mlist());
+
+
+//        Page<Member> page = memberService.list(pageRequestVO);
+//        model.addAttribute("pgntn" , new PaginationDTO<Member>(page));
+
+
+
     }
+
+
+
+
+
     @GetMapping("/read")
     public void read(Long userNo, Model model)throws Exception{
         String classCode = "A02";
