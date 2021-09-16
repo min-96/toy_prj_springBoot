@@ -35,7 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                         .antMatchers("/").permitAll()
                         .antMatchers("/auth/login").permitAll()
-                        .antMatchers("member/register","./member/registerSuccess").permitAll()
+                        .antMatchers("/member/register","./member/registerSuccess").permitAll()
                         .antMatchers("/member/**").hasRole("ADMIN")
                         .antMatchers("/codegroup/**").hasRole("ADMIN")
                         .antMatchers("/codedetail/**").hasRole("ADMIN")
@@ -43,6 +43,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/board/list","/board/read").permitAll()
                 .antMatchers("/board/remove").hasAnyRole("MEMBER","ADMIN")
                 .antMatchers("/board/**").hasRole("MEMBER")
+                .antMatchers("/notice/list","/notice/read").permitAll()
+                .antMatchers("/notice/**").hasRole("ADMIN")
+                .antMatchers("/item/list").permitAll()
+                .antMatchers("/item/read","/item/picture","/item/display").hasAnyRole("MEMBER","ADMIN")
+                .antMatchers("/item/**").hasRole("ADMIN")
                         .anyRequest().authenticated();
 
 

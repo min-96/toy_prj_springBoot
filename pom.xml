@@ -76,6 +76,18 @@
             <artifactId>thymeleaf-extras-springsecurity5</artifactId>
 
         </dependency>
+<!--        설정메타정보 제공을 위한 라이브러리 의존관계-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+<!--            파일을 처리하기 위한 의존 라이브러리-->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.6</version>
+        </dependency>
 
         <dependency>
             <groupId>com.querydsl</groupId>
