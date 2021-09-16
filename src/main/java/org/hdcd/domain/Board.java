@@ -40,7 +40,7 @@ public class Board {
 	private String content;
 	
 	//@Column(name="writer")
-	@Size(max=3)
+	@Size(max=30)
 	private String writer;
 	
 	//@Column(name="reg_date")

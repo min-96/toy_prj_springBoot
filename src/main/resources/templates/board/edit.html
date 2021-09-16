@@ -11,6 +11,13 @@
 	
 	<form action="sucess.html" th:action="@{edit}" th:object="${board}" method="post">
 	<input type="hidden" name="boarNo" th:field="*{boardNo}"/>
+		<input type="hidden" name="page" th:value="${pgrq.page}"/>
+		<input type="hidden" name="sizePerPage" th:value="${pgrq.sizePerPage}"/>
+
+
+		<input type="hidden" name="searchType" th:value="${pgrq.searchType}"/>
+		<input type="hidden" name="keyword" th:value="${pgrq.keyword}"/>
+
 	<table>
 	<tr>
 	<td th:text="#{board.title}">Title</td>
@@ -30,9 +37,9 @@
 	
 	</table>
 	
-<!--	<input type="hidden" name="page" th:value="${pgrq.page}"/>-->
-<!--	<input type="hidden" name="sizePerPage" th:value="${pgrq.sizePerPage}"/>-->
-<!--	-->
+	<input type="hidden" name="page" th:value="${pgrq.page}"/>
+	<input type="hidden" name="sizePerPage" th:value="${pgrq.sizePerPage}"/>
+
 	
 	
 	
@@ -42,7 +49,7 @@
 			<button type="submit" th:text="#{action.edit}"></button>
 			</th:block>
 		</th:block>
-<!--	<a href="list.html" th:href="@{|list${pgrq.toUriString()}}">List</a>-->
+	<a href="list.html" th:href="@{|list${pgrq.toUriString()}}" th:text="#{action.list}">List</a>
 	</div>
 	
 	

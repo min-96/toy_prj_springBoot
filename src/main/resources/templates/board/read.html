@@ -13,8 +13,14 @@
 
 <form th:object ="${board}" method="post" th:action="@{|remove?boardNo=${board.boardNo}|}">
 <input type="hidden" name="boardNo" th:field="*{boardNo}"/>
+    <input type="hidden" name="page" th:value="${pgrq.page}"/>
+    <input type="hidden" name="sizePerPage" th:value="${pgrq.sizePerPage}"/>
 
-<table>
+
+    <input type="hidden" name="searchType" th:value="${pgrq.searchType}"/>
+    <input type="hidden" name="keyword" th:value="${pgrq.keyword}"/>
+
+    <table>
 <tr>
 <td th:text="#{board.title}">Title></td>
 <td><input type="text" name="title" th:field="*{title}" readonly="readonly"/></td>
@@ -33,10 +39,9 @@
 
 </table>
 
-<!--<input type="hidden" name="page" th:value="${pgrq.page}"/>-->
-<!--<input type="hidden" name="sizePerPage" th:value="${pgrq.sizePerPage}"/>-->
+<input type="hidden" name="page" th:value="${pgrq.page}"/>
+<input type="hidden" name="sizePerPage" th:value="${pgrq.sizePerPage}"/>
 
-<!--<a href="edit.html" th:href="@{|edit${pgrq.toUriString()}&boardNo=${board.boardNo}|}">Modify</a>-->
 <!--<a href="list.html" th:href="@{|list${pgrq.toUriString()}}">List</a>-->
 
 
@@ -44,6 +49,8 @@
         <div th:with = "pinfo=${#authentication.principal}">
             <th:block sec:authorize="hasRole('MEMBER')">
                 <th:block th:if="${pinfo.username eq board.writer}">
+                    <a href="edit.html" th:href="@{|edit${pgrq.toUriString()}&boardNo=${board.boardNo}|}" th:text="#{action.edit}"></a>
+
                     <button type="submit" th:text="#{action.remove}"></button>
                 </th:block>
             </th:block>
@@ -54,7 +61,10 @@
     <th:block sec:authorize="hasRole('ADMIN')">
 <button type="submit" value="삭제" th:text="#{action.remove}">remove</button>
     </th:block>
-    </div>
+
+            	<a href="list.html" th:href="@{|list${pgrq.toUriString()}}" th:text="#{action.list}">List</a>
+
+        </div>
 </form>
 
 </div>

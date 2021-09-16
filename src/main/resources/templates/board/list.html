@@ -25,17 +25,17 @@
 	<a th:href="@{/board/get?modify}">Modify</a> -->
 	
 <!-- 	검색 폼 -->
-<!--	<form action="list.html" th:action="@{list}"-->
-<!--	th:object="${pgrq}" method="get">-->
-<!--	<select th:field="*{searchType}">-->
-<!--	<option th:each="element:${search}" th:value="${element.value}" -->
-<!--	th:label="${element.label}">제목</option>-->
-<!--	</select>-->
-<!--	-->
-<!--	<input type="text" name="keyword" th:field="*{keyword}"/>-->
-<!--	<button type="submit">검색</button>-->
-<!--	-->
-<!--	</form>-->
+	<form action="list.html" th:action="@{|/board/list${pgrq.toUringStringForSearchAction(1)}|}"
+	th:object="${pgrq}" method="get">
+	<select th:field="*{searchType}">
+	<option th:each="element:${search}" th:value="${element.value}"
+	th:label="${element.label}">제목</option>
+	</select>
+
+	<input type="text" name="keyword" th:field="*{keyword}"/>
+	<button type="submit" th:text="#{action.search}">검색</button>
+
+	</form>
 	
 	
 	
@@ -46,7 +46,7 @@
 	<a href = "register.html" th:href="@{register}">New</a>
 	</th:block>
 <!--		   th:with="boardList=${pgntn.page.content}"-->
-	<table border ="1">
+	<table border ="1" th:with="boardList =${pgntn.page.content}">
 
 	<tr>
 	<th align="center" width ="80" th:text="#{board.no}">No</th>
@@ -55,14 +55,14 @@
 	<th align ="center" width = "180" th:text="#{regdate}">Regdate</th>
 	</tr>
 	
-	<tr th:if="${#lists.isEmpty(list)}">
+	<tr th:if="${#lists.isEmpty(boardList)}">
 	<td colspan="4"> List is empty</td>
 	</tr>
 	
 
-	<tr th:each="board:${list}">
+	<tr th:each="board:${boardList}">
 	<td align ="center" th:text="${board.boardNo}">${board.boardNo}</td>
-	<td align ="center"><a href="read.html" th:href="@{|read?boardNo=${board.boardNo}|}"
+	<td align ="center"><a href="read.html" th:href="@{|/board/read${pgrq.toUriString()}&boardNo=${board.boardNo}|}"
 	th:text="${board.title}">${board.title}</a></td>
 	
 	<td align= "center" th:text="${board.writer}">${board.writer}</td>
@@ -71,9 +71,32 @@
 	</tr>
 	
 	</table>
-	
-	
 
+
+	<div>
+		<th:block th:if = "${pgntn.prevPageable}">
+			<a
+					th:href="@{|list${pgrq.toUriStringByPage(pgntn.prevPageable.pageNumber+1)}|}">Prev
+				[[${pgntn.prevPageable.pageNumber}+1]]</a>
+		</th:block>
+
+		<th:block th:each="p:${pgntn.pageableList}">
+			<a href="list.html" th:href="@{|list${pgrq.toUriStringByPage(p.pageNumber+1)}|}">
+				[[${p.pageNumber}+1]]
+			</a>
+		</th:block>
+
+		<th:block th:if="${pgntn.nextPageable}">
+			<a href="list.html" th:href="@{|list${pgrq.toUriStringByPage(pgntn.nextPageable.pageNumber+1)}|}">
+				[[${pgntn.nextPageable.pageNumber}+1]]
+			</a>
+		</th:block>
+
+
+
+
+
+	</div>
 	
 	
 
