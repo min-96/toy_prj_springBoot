@@ -15,6 +15,8 @@
         </td>
 <!--        //로그인을 하지 않은 경우.-->
         <th:block sec:authorize = "!isAuthenticated()">
+            <th width ="12"><a href="../board/list.html" th:href="@{/board/list}" th:text="#{menu.board.list}"></a></th>
+
 
         </th:block>
 <!--        인증된 사용자인 경우 -->
@@ -29,9 +31,12 @@
         <td width="120"><a href="../codedetail/list.html" th:href="@{/codedetail/list}"th:text="#{menu.codedetail.list}"/></td>
 
         <td width="120"> <a href="../member/list.html" th:href="@{/member/list}" th:text="#{menu.member.list}"/></td>
+            <td width="120"> <a href="../board/list.html" th:href="@{/board/list}" th:text="#{menu.board.admin}"/></td>
+
         </th:block>
 <!--            회원 권한-->
         <th:block sec:authorize ="hasRole('MEMBER')">
+            <th width ="12"><a href="../board/list.html" th:href="@{/board/list}" th:text="#{menu.board.list}"></a></th>
 
 
 

@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="kr" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="layouts/main_template">
 <head>
 <meta charset="UTF-8">
 <title>BOARD</title>
@@ -7,9 +9,10 @@
 	<h2>Board Register : access to Member</h2>
 </head>
 <body>
-<h1>게시물 작성하기</h1>
-<p>principal : <span th:authentication="principal"></span></p>
-<p>Member:<span th:authentication="principal.member"></span></p>
+<div layout:fragment="content">
+<h1 th:text="#{board.header.register}"> </h1>
+<!--<p>principal : <span th:authentication="principal"></span></p>-->
+<!--<p>Member:<span th:authentication="principal.member"></span></p>-->
 
 
 
@@ -19,29 +22,29 @@ th:object="${board}"> <!-- 경로 -->
 
 	<table>
 	<tr>
-	<td>title</td>
-	<td><input type="text" name="title" th:field="*{title}"/>
+	<td th:text="#{board.title}">title</td>
+	<td><input type="text" name="title"  th:field="*{title}"/>
  	<span th:if="${#fields.hasErrors('title')}" th:error="*{title}">
 	title의에러메세지</span>
 	</td>
 	
 	<tr>
-	<td>writer</td>
+	<td th:text="#{board.writer}">writer</td>
 	<td><input type="text" name="writer" th:field="*{writer}"/>
 	<span th:if="${#fields.hasErrors('writer')}" th:error="*{writer}">
 	입력값이 너무 큽니다</span>
 	</td>
 	
 	<tr>
-	<td>content</td>
-	<td><textarea name="content" th:fied="*{content}"></textarea>
+	<td th:text="#{board.content}">content</td>
+	<td><textarea name="content" th:fied="*{content}" ></textarea>
 	</td>
 	
 	
 	</table>
-	<input type="submit" value="전송">
+	<button type="submit" th:text="#{action.register}"></button>
 	</form>
 	
-	
+</div>
 </body>
 </html>

@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
-//@Table(name="board")
+@Table(name="board")
 //@NoArgsConstructor //인자가 없는 기본 생성자를 생성
 //@AllArgsConstructor //모든 인자로 갖는 생성자 생성
 //@RequiredArgsConstructor //nonnull이 적용된 필드값이나 final로 선언된 필드값만 인자로 받는 생성자 생성
