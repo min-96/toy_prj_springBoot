@@ -13,4 +13,8 @@ public interface ItemService {
     public Item read(Long itemId)throws Exception;
     //미리보기 이미지 표시
     String getPreview(Long itemId) throws Exception;
+
+    void edit(Item item);
+
+    void remove(Long itemId);
 }

@@ -68,6 +68,8 @@ public class ItemController {
     public void list(Item item,Model model)throws Exception{
     List<Item> itemList = itemService.list();
 
+    model.addAttribute(item);
+
     model.addAttribute("itemList",itemList);
     }
 
@@ -76,6 +78,38 @@ public class ItemController {
         model.addAttribute("item", itemService.read(itemId));
     }
 
+    @GetMapping("/edit")
+    @PreAuthorize("hasRole('ADMIN')")
+    public void edit(Long itemId,Model model) throws Exception{
+        model.addAttribute("item",itemService.read((itemId)));
+    }
+
+    @PostMapping("/edit")
+    @PreAuthorize("hasRole('ADMIN')")
+    public String edit(Item item, RedirectAttributes rttr) throws Exception{
+        MultipartFile pictureFile = item.getPicture();
+        if(pictureFile != null && pictureFile.getSize()>0){
+            String createdFileName = uploadFile(pictureFile.getOriginalFilename(),pictureFile.getBytes());
+
+            item.setPictureUrl(createdFileName);
+
+        }
+        MultipartFile previewFile = item.getPreview();
+        if(previewFile !=null && previewFile.getSize()>0){
+            String createdFileName = uploadFile(previewFile.getOriginalFilename(), previewFile.getBytes());
+            item.setPreviewUrl(createdFileName);
+        }
+        itemService.edit(item);
+        return "redirect:/item/list";
+    }
+
+    @PostMapping("/remove")
+    @PreAuthorize("hasRole('ADMIN')")
+    public String remove(Long itemId,RedirectAttributes rttr)throws Exception{
+
+        itemService.remove(itemId);
+        return "redirect:/item/remove";
+    }
             private String uploadFile(String originalName, byte[]fileData) throws Exception{
                 UUID uid = UUID.randomUUID();
 
@@ -90,6 +124,7 @@ public class ItemController {
                 return createdFileName;
 
             }
+
 
             //미리보기 이미지 표시
     @ResponseBody

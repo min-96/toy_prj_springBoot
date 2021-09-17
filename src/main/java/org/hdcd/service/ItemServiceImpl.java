@@ -36,4 +36,23 @@ public class ItemServiceImpl implements ItemService{
 
         return item.getPreviewUrl();
     }
+
+    @Override
+    public void edit(Item item) {
+        Item itemEntity = itemRepository.getOne(item.getItemId());
+
+        itemEntity.setItemName(item.getItemName());
+        itemEntity.setPrice(item.getPrice());
+        itemEntity.setPreviewUrl(item.getPreviewUrl());
+        itemEntity.setPictureUrl(item.getPictureUrl());
+        itemEntity.setDescription(item.getDescription());
+
+        itemRepository.save(itemEntity);
+
+    }
+
+    @Override
+    public void remove(Long itemId) {
+        itemRepository.deleteById(itemId);
+    }
 }
