@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="kr" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="layouts/main_template"><head>
+      layout:decorate="layouts/main_template">
+<head>
     <meta charset="UTF-8">
     <title>Item</title>
 </head>
 <body>
 <div layout:fragment="content">
     <h2 th:text="#{item.header.register}"></h2>
-    <form th:action="@{/item/register}" th:object="item" method="post" enctype="multipart/form-data">
+    <form th:action="@{/item/register}" th:object="${item}" method="post" enctype="multipart/form-data">
 
         <table>
 
