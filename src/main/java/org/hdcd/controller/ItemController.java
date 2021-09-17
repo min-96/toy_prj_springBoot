@@ -103,12 +103,27 @@ public class ItemController {
         return "redirect:/item/list";
     }
 
+    @GetMapping("/remove")
+    @PreAuthorize("hasRole('ADMIN')")
+    public void removeForem(Long itemId, Model model) throws Exception{
+      Item item = itemService.read(itemId);
+      model.addAttribute(item);
+
+
+    }
+
+
     @PostMapping("/remove")
     @PreAuthorize("hasRole('ADMIN')")
-    public String remove(Long itemId,RedirectAttributes rttr)throws Exception{
+    public String remove(Item item,RedirectAttributes rttr)throws Exception{
 
-        itemService.remove(itemId);
-        return "redirect:/item/remove";
+        itemService.remove(item.getItemId());
+        return "redirect:/item/list";
+
+
+
+
+
     }
             private String uploadFile(String originalName, byte[]fileData) throws Exception{
                 UUID uid = UUID.randomUUID();
