@@ -48,6 +48,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/item/list").permitAll()
                 .antMatchers("/item/read","/item/picture","/item/display").hasAnyRole("MEMBER","ADMIN")
                 .antMatchers("/item/**").hasRole("ADMIN")
+                //코인
+                .antMatchers("/coin/**").hasRole("MEMBER")
                         .anyRequest().authenticated();
 
 
