@@ -66,4 +66,16 @@ public class CoinController {
 
     }
 
+
+    @GetMapping("/list")
+    public void list(Model model,Authentication authentication){
+        CustomUser customUser = (CustomUser) authentication.getPrincipal();
+        Member member = customUser.getMember();
+        Long userNo = member.getUserNo();
+
+        model.addAttribute("list",coinService.list(userNo));
+
+
+    }
+
 }
