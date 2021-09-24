@@ -111,9 +111,14 @@ public class MemberServiceImpl implements MemberService {
 
     }
 
-
-
+    @Override
+    public int getCoin(Long userNo) {
+        Member member = memberRepository.getOne(userNo);
+        return member.getCoin();
     }
+
+
+}
 
 
 

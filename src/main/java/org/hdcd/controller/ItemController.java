@@ -4,14 +4,20 @@ package org.hdcd.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
+import org.hdcd.domain.CustomUser;
 import org.hdcd.domain.Item;
+import org.hdcd.domain.Member;
 import org.hdcd.prop.ShopProperties;
 import org.hdcd.service.ItemService;
+import org.hdcd.service.MemberService;
+import org.hdcd.service.UserItemService;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -26,6 +32,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 @Controller
@@ -36,6 +43,9 @@ public class ItemController {
 
     private final ItemService itemService;
     private final ShopProperties shopProperties;
+    private final MemberService memberService;
+    private final UserItemService userItemService;
+    private final MessageSource messageSource;
 
 
 
@@ -125,6 +135,38 @@ public class ItemController {
 
 
     }
+
+
+
+
+    @PostMapping("/buy")
+    public String buy(Long itemId, RedirectAttributes rttr, Authentication authentication) throws Exception{
+        CustomUser customUser = (CustomUser) authentication.getPrincipal();
+        Member member = customUser.getMember();
+
+        Long userNo = member.getUserNo();
+        member.setCoin(memberService.getCoin(userNo));
+
+        Item item = itemService.read(itemId);
+
+        userItemService.register(member, item);
+
+        log.info("buySuccess");
+
+        String message = messageSource.getMessage("item.purchaseComplete",null, Locale.KOREAN);
+        rttr.addFlashAttribute("msg",message);
+        return "redirect:/item/success";
+
+
+    }
+
+
+
+    @GetMapping("/success")
+    public void success(){
+        log.info("success!!@@@@@@");
+    }
+
             private String uploadFile(String originalName, byte[]fileData) throws Exception{
                 UUID uid = UUID.randomUUID();
 

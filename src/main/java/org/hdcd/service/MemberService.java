@@ -21,5 +21,7 @@ public interface MemberService {
 
     void setupAdmin(Member member)throws Exception;
 
-  //  Page<Member> list(PageRequestVO pageRequestVO);
+    public int getCoin(Long userNo);
+
+    //  Page<Member> list(PageRequestVO pageRequestVO);
 }

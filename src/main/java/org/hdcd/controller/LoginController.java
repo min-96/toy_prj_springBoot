@@ -18,7 +18,8 @@ public class LoginController {
 
        if(logout!=null){
            model.addAttribute("logout","logout");
-        }
+
+       }
         return "auth/loginForm";
     }
 
