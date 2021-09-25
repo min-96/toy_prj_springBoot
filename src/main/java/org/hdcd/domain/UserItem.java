@@ -3,6 +3,8 @@ package org.hdcd.domain;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -32,7 +34,9 @@ public class UserItem {
     @Transient
     private String pictureUrl;
 
+    @CreationTimestamp
     private LocalDateTime regDate;
 
+    @UpdateTimestamp
     private LocalDateTime upDate;
 }

@@ -12,6 +12,9 @@ import org.hdcd.repository.UserItemRepository;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.Transient;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -54,5 +57,30 @@ public class UserItemServiceImpl implements UserItemService{
         payCoinRepository.save(payCoin);
         userItemRepository.save(userItem);
 
+    }
+
+    @Override
+    public List<UserItem> list(Long userNo) throws Exception {
+
+        List<Object[]> valueArrays = userItemRepository.listUserItem(userNo);
+
+        List<UserItem> userItemList = new ArrayList<>();
+        for(Object[]valueArray : valueArrays){
+            UserItem userItem = new UserItem();
+
+            userItem.setUserItemNo((Long)valueArray[0]);
+            userItem.setUserNo((Long)valueArray[1]);
+            userItem.setItemId((Long)valueArray[2]);
+            userItem.setRegDate((LocalDateTime) valueArray[3]);
+            userItem.setItemName((String)valueArray[4]);
+            userItem.setPrice((int)valueArray[5]);
+            userItem.setDescription((String)valueArray[6]);
+            userItem.setPictureUrl((String)valueArray[7]);
+
+            userItemList.add(userItem);
+
+
+        }
+        return userItemList;
     }
 }
