@@ -10,4 +10,6 @@ public interface UserItemService {
     void register(Member member, Item item);
 
     public List<UserItem> list(Long userNo)throws  Exception;
+
+    public UserItem read(Long userItemNo) throws Exception;
 }
