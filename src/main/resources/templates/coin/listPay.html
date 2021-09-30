@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="kr" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layouts/main_template">
+<head>
+    <meta charset="UTF-8">
+    <title>Coin</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h2 th:text="#{coin.header.paylist}"></h2>
+    <table border="1">
+        <tr>
+            <th align="center" width="80" th:text="#{coin.no}"></th>
+
+            <th align="center" width="130" th:text="#{coin.itemName}"></th>
+
+            <th align="center" width="100" th:text="#{coin.payAmount}"></th>
+
+
+
+        </tr>
+
+        <tr th:if="${#lists.isEmpty(list)}">
+            <td colspan="4" th:text="#{common.listEmpty}">
+                List is empty
+            </td>
+        </tr>
+
+        <tr th:each="paycoin:${list}">
+            <td align="center" th:text="${paycoin.historyNo}"></td>
+            <td align="center" th:text="${paycoin.itemName}"></td>
+            <td align="center" th:text="${paycoin.amount}"></td>
+        </tr>
+
+
+    </table>
+
+
+</div>
+
+</body>
+</html>

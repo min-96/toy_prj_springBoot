@@ -50,6 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .antMatchers("/item/**").hasRole("ADMIN")
                 .antMatchers("/item/edit","item/remove").hasRole("ADMIN")
                 .antMatchers("/item/buy","/item/success").hasRole("MEMBER")
+                .antMatchers("/useritem/**").hasRole("MEMBER")
                 //코인
                 .antMatchers("/coin/**").hasRole("MEMBER")
                         .anyRequest().authenticated();
