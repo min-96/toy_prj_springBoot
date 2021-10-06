@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j//로그인을 시도한 클라이언트 ip를 얻는 유틸리티 클래스정의
 public class NetUtils {
 
-    public static String getId(HttpServletRequest request){
+    public static String getIp(HttpServletRequest request){
         String ip = request.getHeader("X-Forwarded-For");
 
         log.info(">>>>>X-FORWARD-FOR"+ip);
