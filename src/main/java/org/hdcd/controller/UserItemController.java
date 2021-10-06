@@ -6,6 +6,7 @@ import org.apache.commons.io.IOUtils;
 import org.hdcd.domain.CustomUser;
 import org.hdcd.domain.Member;
 import org.hdcd.domain.UserItem;
+import org.hdcd.exception.NotMyItemException;
 import org.hdcd.prop.ShopProperties;
 import org.hdcd.service.UserItemService;
 import org.springframework.http.HttpHeaders;
@@ -57,6 +58,12 @@ public class UserItemController {
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
     public ResponseEntity<byte[]> download(Long userItemNo, Authentication authentication)throws Exception{
         UserItem userItem= userItemService.read(userItemNo);
+        //내 상품인지 체크
+        CustomUser customUser = (CustomUser)authentication.getPrincipal();
+        Member member = customUser.getMember();
+        if(userItem.getUserNo()!=member.getUserNo()){
+            throw new NotMyItemException("It is Not My Item");
+        }
 
         String fullName = userItem.getPictureUrl();
 

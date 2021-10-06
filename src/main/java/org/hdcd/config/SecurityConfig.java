@@ -53,6 +53,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/useritem/**").hasRole("MEMBER")
                 //코인
                 .antMatchers("/coin/**").hasRole("MEMBER")
+                //에러페이지
+                .antMatchers("/error/**").permitAll()
                         .anyRequest().authenticated();
 
 

@@ -6,6 +6,7 @@ import org.hdcd.domain.Item;
 import org.hdcd.domain.Member;
 import org.hdcd.domain.PayCoinHistory;
 import org.hdcd.domain.UserItem;
+import org.hdcd.exception.NotEnoughCoinException;
 import org.hdcd.repository.MemberRepository;
 import org.hdcd.repository.PayCoinRepository;
 import org.hdcd.repository.UserItemRepository;
@@ -51,6 +52,11 @@ public class UserItemServiceImpl implements UserItemService{
         int coin = memberEntity.getCoin();
 
         int amount = payCoin.getAmount();
+
+
+        if(coin<price){
+            throw new NotEnoughCoinException("there is Not Enough Coin");
+        }
 
         memberEntity.setCoin(coin-amount);
         memberRepository.save(memberEntity);
