@@ -85,4 +85,10 @@ public class CoinController {
         model.addAttribute("list",coinService.listPayHistory(userNo));
     }
 
+
+    @GetMapping("notEnoughCoin")
+    @PreAuthorize("hasRole('MEMBER')")
+    public void notEnoughCoin(Model model)throws Exception{
+
+    }
 }

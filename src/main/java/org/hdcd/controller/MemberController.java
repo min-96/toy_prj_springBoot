@@ -87,6 +87,7 @@ public class MemberController {
     @GetMapping("/registerSuccess")
     public void registerSuccess(Model model)throws Exception{
 
+
     }
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/list")
