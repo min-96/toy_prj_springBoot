@@ -112,7 +112,7 @@ public class MemberController {
 
     @GetMapping("/read")
     public void read(Long userNo, Model model)throws Exception{
-        String classCode = "A02";
+        String classCode = "A01";
         List<CodeLabelValue> familyList = codeService.getCodeList(classCode);
         model.addAttribute("familyList" , familyList);
         model.addAttribute(memberService.read(userNo));
@@ -121,7 +121,7 @@ public class MemberController {
 
     @GetMapping("/edit")
     public void edit(Long userNo,Model model)throws Exception{
-        String classCode = "A02";
+        String classCode = "A01";
         List<CodeLabelValue> familyList = codeService.getCodeList(classCode);
         model.addAttribute("familyList",familyList);
         model.addAttribute(memberService.read(userNo));
