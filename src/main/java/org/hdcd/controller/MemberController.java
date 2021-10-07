@@ -2,6 +2,7 @@ package org.hdcd.controller;
 
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.dom4j.rule.Mode;
 import org.hdcd.domain.Board;
 import org.hdcd.domain.Member;
@@ -24,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
-
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/member")
@@ -64,7 +65,7 @@ public class MemberController {
     public void register(Model model){
         Member member= new Member();
         model.addAttribute("member",member);
-        String classCode = "A02";
+        String classCode = "A01";
         List<CodeLabelValue> familyList = codeService.getCodeList(classCode);
 
         model.addAttribute("familyList",familyList);
@@ -73,7 +74,7 @@ public class MemberController {
     @PostMapping("/register")
     public String register(@Validated Member member, BindingResult result, Model model, RedirectAttributes rttr)throws Exception{
         if(result.hasErrors()){
-            String classCode="A02";
+            String classCode="A01";
             List<CodeLabelValue> familyList = codeService.getCodeList(classCode);
             model.addAttribute("familyList",familyList);
         return "member/list";
@@ -82,10 +83,12 @@ public class MemberController {
         member.setUserPwd(passwordEncoder.encode(inputPassword));
         memberService.register(member);
         rttr.addFlashAttribute("userName",member.getUserName());
-        return "redirect:/member/registerSuccess";
+        return "/member/registerSuccess";
     }
     @GetMapping("/registerSuccess")
-    public void registerSuccess(Model model)throws Exception{
+    public String registerSuccess(Model model)throws Exception{
+        log.info("ddddd");
+        return "member/registerSuccess";
 
 
     }

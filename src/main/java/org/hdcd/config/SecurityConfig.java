@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.hdcd.config.security.CustomAccessDeniedHandler;
 import org.hdcd.config.security.CustomLoginSuccessHandler;
 import org.hdcd.config.security.CustomUserDetailService;
+import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -34,7 +35,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                         .antMatchers("/").permitAll()
+                .requestMatchers(EndpointRequest.toAnyEndpoint()).hasAnyRole("ADMIN")
                         .antMatchers("/auth/login").permitAll()
+                .antMatchers("/member/setup").permitAll()
                         .antMatchers("/member/register","./member/registerSuccess").permitAll()
                         .antMatchers("/member/**").hasRole("ADMIN")
                         .antMatchers("/codegroup/**").hasRole("ADMIN")

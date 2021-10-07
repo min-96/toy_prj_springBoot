@@ -33,7 +33,7 @@ public class BoardServiceImpl implements BoardService{
 //    }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = false)
     public Board read(Long boardNo) {
         return boardRepository.getOne(boardNo);
     }
