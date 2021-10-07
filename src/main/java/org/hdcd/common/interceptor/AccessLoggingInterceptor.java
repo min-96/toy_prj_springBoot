@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.hdcd.common.controller.util.NetUtils;
 import org.hdcd.common.domain.AccessLog;
 import org.hdcd.common.service.AccessLogService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -13,12 +14,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
 
-@RequiredArgsConstructor
+
 @Slf4j
 public class AccessLoggingInterceptor extends HandlerInterceptorAdapter {
 
-
-    private final AccessLogService accessLogService;
+    @Autowired
+    private AccessLogService accessLogService;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
